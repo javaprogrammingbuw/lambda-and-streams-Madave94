@@ -1,0 +1,2 @@
+John Snow,5.0
+Donald Trump,5.0

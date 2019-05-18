@@ -3,12 +3,37 @@
  */
 package lamstr;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class App {
     public String getGreeting() {
-        return "Hello world!";
+        return "Start processing..";
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+    	Files.delete(Paths.get("output.txt"));
         System.out.println(new App().getGreeting());
+        
+        List<String> list = Files.readAllLines(Paths.get("input.txt"));
+        
+        list
+        	.stream()
+        	.filter(s -> s.contains("5"))
+        	.map(s -> s + "\n")
+        	.forEach(s -> {
+				try {
+					Files.writeString(Paths.get("output.txt"), s, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});;    
+        
     }
 }
